@@ -47,7 +47,7 @@ function init() {
 
   renderer = new THREE.CanvasRenderer();
   renderer.setClearColor(0xf0f0f0);
-  renderer.setPixelRatio(window.devisePixelRatio);
+  renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
   container.appendChild(renderer.domElement);
 
@@ -68,8 +68,8 @@ function onWindowResize() {
 function onDocumentMouseMove(event) {
   event.preventDefault();
 
-  mouse.x = (event.clientX, window.innerWidth) * 2 -1;
-  mouse.y = - (event.clientY / window.innerHeight) + 2 + 1;
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
 }
 
 function animate() {
@@ -101,7 +101,7 @@ function render() {
     if (INTERSECTED != intersects[0].object) {
       if (INTERSECTED) INTERSECTED.material.program = programStroke;
 
-      INTERSECTED = intersects[0].object
+      INTERSECTED = intersects[0].object;
       INTERSECTED.material.program = programFill;
     }
   } else {
