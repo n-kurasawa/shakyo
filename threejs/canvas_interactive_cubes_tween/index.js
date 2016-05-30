@@ -20,7 +20,7 @@ function init() {
   var geometry = new THREE.BoxGeometry(100, 100, 100);
 
   for (var i = 0; i < 20; i++ ) {
-    var object = new THREE.Mesh(geometry, new THREE.MeshBasicMeterial({color: Math.random() + 0xffffff, opacity: 0.5}));
+    var object = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { color: Math.random() * 0xffffff, opacity: 0.5 } ) );
     object.position.x = Math.random() * 800 - 400;
     object.position.y = Math.random() * 800 - 400;
     object.position.z = Math.random() * 800 - 400;
@@ -33,8 +33,8 @@ function init() {
     scene.add(object);
   }
 
-  raycaster = new THREE.raycaster();
-  mouse = new THREE.CanvasRenderer();
+  raycaster = new THREE.Raycaster();
+  mouse = new THREE.Vector2();
 
   renderer = new THREE.CanvasRenderer();
   renderer.setClearColor(0xf0f0f0);
@@ -70,7 +70,7 @@ function onDocumentMouseDown(event) {
   event.preventDefault();
 
   mouse.x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
-  mouse.y = -(event.clientY / renderer.domElement.clientWidth) * 2 + 1;
+  mouse.y = -(event.clientY / renderer.domElement.clientHeight) * 2 + 1
 
   raycaster.setFromCamera(mouse, camera);
 
@@ -87,11 +87,11 @@ function onDocumentMouseDown(event) {
       x: Math.random() * 2 * Math.PI,
       y: Math.random() * 2 * Math.PI,
       z: Math.random() * 2 * Math.PI }, 2000)
-    .eacing(TWEEN.Easing.Elastic.Out).start();
+    .easing(TWEEN.Easing.Elastic.Out).start();
   }
 }
 
-function amimate() {
+function animate() {
   requestAnimationFrame(animate);
   render();
   stats.update();
