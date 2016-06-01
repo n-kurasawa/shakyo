@@ -35,7 +35,7 @@ function init() {
     geometry.vertices.push(new THREE.Vector3(i, 0,  size));
   }
 
-  var material = new THREE.LineBasicMaterial({color: 0x000000, opasity: 0.2});
+  var material = new THREE.LineBasicMaterial({color: 0x000000, opacity: 0.2});
 
   var line = new THREE.LineSegments(geometry, material);
   scene.add(line);
@@ -50,6 +50,8 @@ function init() {
 
   plane = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ visible: false }));
   scene.add(plane);
+
+  objects.push( plane );
 
   var material = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true});
 
@@ -99,7 +101,7 @@ function onDocumentMouseDown(event) {
   event.preventDefault();
 
   mouse.x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
-  mouse.y = -(event.clientY / renderer.domElement.clientHeight) + 2 + 1;
+  mouse.y = -(event.clientY / renderer.domElement.clientHeight) * 2 + 1;
 
   raycaster.setFromCamera(mouse, camera);
 
