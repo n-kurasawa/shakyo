@@ -39,6 +39,11 @@
     // renderer
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(width, height);
+    renderer.setClearColor(0xefefef);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    document.getElementById('stage').appendChild(renderer.domElement);
+
+    renderer.render(scene, camera);
 
   })();
   </script>
