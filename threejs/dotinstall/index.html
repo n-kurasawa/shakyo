@@ -12,7 +12,9 @@
     'use strict';
 
     var scene;
-    var box; // mesh
+    var person;
+    var head;
+    var body;
     var light;
     var ambient;
     var camera;
@@ -22,20 +24,27 @@
     var renderer;
     var width = 500;
     var height = 250;
-    var theta = 0;
 
     // scene ステージ
     scene = new THREE.Scene();
 
     // mesh 物体
-    // - geometry 形状
-    // - material 材質
-    box = new THREE.Mesh(
-      new THREE.BoxGeometry(50, 50, 50),
+    head = new THREE.Mesh(
+      new THREE.BoxGeometry(20, 20, 20),
       new THREE.MeshLambertMaterial({ color: 0xff0000 })
     );
-    box.position.set(0, 0, 0);
-    scene.add(box);
+    head.position.set(0, 40, 0);
+    // scene.add(head);
+    body = new THREE.Mesh(
+      new THREE.BoxGeometry(40, 60, 40),
+      new THREE.MeshLambertMaterial({ color: 0xff0000 })
+    );
+    body.position.set(0, 0, 0);
+    // scene.add(body);
+    person = new THREE.Group();
+    person.add(head);
+    person.add(body);
+    scene.add(person);
 
     // light
     light = new THREE.DirectionalLight(0xffffff, 1);
@@ -49,14 +58,13 @@
     camera.position.set(200, 100, 300);
     camera.lookAt(scene.position);
 
-    // helpler
+    // helper
     gridHelper = new THREE.GridHelper(200, 50);
     scene.add(gridHelper);
     axisHelper = new THREE.AxisHelper(1000);
     scene.add(axisHelper);
     lightHelper = new THREE.DirectionalLightHelper(light, 20);
     scene.add(lightHelper);
-
 
     // renderer
     renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -67,16 +75,12 @@
 
     function render() {
       requestAnimationFrame(render);
-      // box.rotation.y += 0.01;
 
-      theta += 0.1;
-      camera.position.x = Math.cos(THREE.Math.degToRad(theta)) * 300;
-      camera.position.z = Math.sin(THREE.Math.degToRad(theta)) * 300;
-      camera.lookAt(scene.position);
+      person.rotation.y += 0.01;
       renderer.render(scene, camera);
     }
-
     render();
+
   })();
   </script>
 </body>
